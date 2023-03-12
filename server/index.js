@@ -2,6 +2,7 @@ const express = require('express')
 const socketio = require('socket.io')
 const http = require('http')
 
+const {addUser, removeUser, getUser, getUsersInRoom} = require('./users')
 
 const router = require('./router')
 
@@ -13,6 +14,11 @@ const io = socketio(server)
 
 io.on('connect', (socket) => {
    console.log('connected to socket')
+
+   socket.on('join', ({name, room}, callback) => {
+        console.log(name, room)
+   })
+
     io.on('disconnect', () => {
         console.log('disconnect from socket');
     })
