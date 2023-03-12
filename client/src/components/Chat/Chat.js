@@ -40,7 +40,7 @@ const Chat = () => {
         socket.on('message', (message) => {
             setMessages(messages => [...messages, message])
         })
-    }, [])
+    },[])
 
     const sendMessage = (event) => {
         event.preventDefault()
@@ -51,9 +51,6 @@ const Chat = () => {
             })
         }
     }
-
-    console.log(message, messages);
-
     return (
         <div className='outerContainer'>
             <div className='container'> 

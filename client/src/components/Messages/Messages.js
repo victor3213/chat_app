@@ -5,8 +5,9 @@ import Message from "../Message/Message";
 import './Messages.css'
 
 const Messages = ({messages, name}) => {
+    console.log('messages:', messages)
     return (
-        <ScrollToBottom>
+        <ScrollToBottom className="messages">
             {messages.map((message, i) => <div key={i}><Message message={message} name={name}/></div>)}
         </ScrollToBottom>
     )
