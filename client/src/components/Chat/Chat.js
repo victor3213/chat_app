@@ -4,6 +4,7 @@ import io from 'socket.io-client'
 import Configuration from '../../Configuration'
 import InfoBar from '../InfoBar/InfoBar'
 import Input from '../Input/Input'
+import Messages from '../Messages/Messages'
 
 import './Chat.css'
 
@@ -27,21 +28,19 @@ const Chat = () => {
         setRoom(room)
 
         socket.emit('join', {name, room}, ({error}) => {
-
+            if(error){
+                alert(error)
+            }
         })
         
-        return () => {
-            socket.disconnect()
-            socket.off()
-        }
     },[ENDPOINT, window.location.search])
 
 
     useEffect(() => {
         socket.on('message', (message) => {
-            setMessages([...messages, message])
+            setMessages(messages => [...messages, message])
         })
-    }, [messages])
+    }, [])
 
     const sendMessage = (event) => {
         event.preventDefault()
@@ -61,12 +60,17 @@ const Chat = () => {
                 <InfoBar 
                     room={room}
                 />
-                <Input />
-                {/* <input 
-                    value={message}
-                    onChange={event => setMessage([...messages, event.target.value])}
-                    onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}    
-                /> */}
+
+                <Messages 
+                    messages={messages}
+                    name={name}
+                />
+                <Input 
+                    message={message}
+                    setMessage={setMessage}
+                    sendMessage={sendMessage}
+                    
+                />
             </div>
         </div>
     )
