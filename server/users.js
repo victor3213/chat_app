@@ -7,11 +7,10 @@ const addUser = ({id, name, room}) => {
     const  existingUser = users.find(user => user.room === room && user.name === name)
     if(existingUser) return {error: 'UserName already taken'}
 
-    const newUser = {id, name, room}
+    const user = {id, name, room}
 
-    users.push(newUser)
-
-    return { newUser }
+    users.push(user)
+    return { user }
 }
 
 const removeUser = (id) => {
